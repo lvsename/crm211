@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+    <!--加载spring配置文件-->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:applicationContext.xml</param-value>
+    </context-param>
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <!--加载springMVC配置文件-->
+    <servlet>
+    <servlet-name>xdlcrm</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <init-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:context-dispatcher.xml</param-value>
+    </init-param>
+        <!--启动容器即加载配置文件-->
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <!--配置请求拦截后缀-->
+    <servlet-mapping>
+        <servlet-name>xdlcrm</servlet-name>
+        <!--前端htm，后台拦截do-->
+        <url-pattern>*.do</url-pattern>
+    </servlet-mapping>
+
+    <!--404,500-->
+    <error-page>
+        <error-code>404</error-code>
+        <location>/404.do</location>
+        <!--页面跳转的接口地址-->
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/500.do</location>
+    </error-page>
+    <!--首页-->
+    <welcome-file-list>
+        <welcome-file>index.do</welcome-file>
+    </welcome-file-list>
+    <!--session有效期-->
+    <session-config>
+        <session-timeout>120</session-timeout><!--默认单位为：分钟-->
+    </session-config>
+    <!--日志-->
+    <!--方法1-->
+    <!--<context-param>
+        <param-name>log4jConfigContext</param-name>
+        <param-value>org.springframework.web.util.Log4jConfigListener</param-value>
+    </context-param>-->
+    <!--方法2：自定义日志输出格式-->
+    <context-param>
+        <param-name>log4jConfigLocation</param-name>
+        <param-value>classpath:/log4j.xml</param-value>
+    </context-param>
+    <listener>
+        <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+    </listener>
+    <!--请求编码-->
+    <filter>
+        <filter-name>encodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>forceEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>encodingFilter</filter-name>
+        <url-pattern>*</url-pattern>
+    </filter-mapping>
+
+
+
+    <!--session有效期-->
+</web-app>
