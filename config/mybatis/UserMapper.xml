@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hjcrm.entity">
+
+    <!--根据邮箱查询用户信息-->
+    <select id="queryUserByEmail" parameterType="java.lang.String" resultType="com.xdlcrm.system.entity.User">
+        select u.userid,u.roleid,u.username,u.phone,u.deptid,u.email,u.ischange
+        from hj_user u where u.email = #{email}
+    </select>
+
+    <select id="isExisPasswordByuserId" parameterType="java.util.Map" resultType="com.xdlcrm.system.entity.User">
+        select
+            u.userid,u.roleid,u.username,u.phone,u.deptid,u.email
+        from hj_user u
+        where u.userid = #{userid} and u.password = #{password}
+    </select>
+	 <select id="queryUserInfo" parameterType="java.util.Map" resultType="com.xdlcrm.system.entity.User">
+
+         select u.userid,u.roleid,u.username,u.phone,u.deptid,u.email,u.ischange
+        from hj_user u
+
+     </select>
+    <select id="queryUserByUserid" parameterType="java.util.Map" resultType="com.xdlcrm.system.entity.User">
+         select u.userid,u.roleid,u.username,u.password
+        from hj_user u where u.userid=#{userid}
+
+
+    </select>
+   <!-- <delete id="deleteUserByIds" parameterType="java.util.List">
+        delete from hj_user where userid in
+        <foreach collection="" index="index" item="#{list}" open="(" close=")" separator=",">
+            #{index}
+        </foreach>
+
+
+    </delete>-->
+	
+</mapper> 

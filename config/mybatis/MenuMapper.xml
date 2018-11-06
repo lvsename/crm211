@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hjcrm.entity">
+<!--根据当前用户的角色id，查询对应的菜单信息-->
+    <select id="queryMenusByRoleId" parameterType="java.util.Map" resultType="com.xdlcrm.system.entity.Menu">
+         SELECT
+          rm.roleid,rm.menuid,r.rolename,m.menuname,m.menuurl
+              FROM hj_role_menu rm
+              LEFT JOIN hj_menu m ON m.menuid=rm.menuid
+              LEFT JOIN hj_role r ON r.roleid=rm.roleid
+              WHERE rm.roleid=#{roleid}
+              <if test="parid!=null">
+                  AND m.menuparaid IS NULL
+              </if>
+              <if test="parid==null">
+                  AND m.menuparaid =#{mid}
+
+              </if>
+
+    </select>
+    <select id="queryMenuByRoleId" parameterType="java.util.Map" resultType="com.xdlcrm.system.entity.Menu">
+        SELECT
+        rm.roleid,rm.menuid,r.rolename,m.menuname,m.menuurl
+        FROM hj_role_menu rm
+        LEFT JOIN hj_menu m ON m.menuid=rm.menuid
+        LEFT JOIN hj_role r ON r.roleid=rm.roleid
+        WHERE rm.roleid=#{roleid}
+    </select>
+    <select id="queryAllMenu" parameterType="java.util.Map" resultType="com.xdlcrm.system.entity.Menu">
+        select
+        m.menuid,m.menuparaid,m.menuname
+        from hj_menu m
+        where 1=1
+        <if test="parid!=null">
+          and  m.menuparaid is null
+        </if>
+        <if test="parid==null">
+          and  m.menuparaid=#{mid}
+        </if>
+
+
+    </select>
+
+	
+</mapper> 

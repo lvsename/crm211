@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hjcrm.entity">
+
+    <!--查询所有的课程信息-->
+    <select id="queryCourse" parameterType="java.util.Map" resultType="com.xdlcrm.system.entity.Course">
+SELECT c.courseid,c.coursename,c.courseMoney,c.courseTeacherid,c.courseTeacherName,c.courseDescribe,c.note
+ FROM hj_course c
+
+    </select>
+
+	
+</mapper> 

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hjcrm.entity">
+<!--根据部门id查询部门信息-->
+   <select id="queryDeptInfo" parameterType="java.util.Map" resultType="com.xdlcrm.system.entity.Dept">
+       SELECT d.deptid,d.deptname,d.deptcode FROM hj_dept d WHERE d.deptid=#{deptid}
+   </select>
+    <!--查询所有的部门信息-->
+    <select id="queryDept" parameterType="java.util.Map" resultType="com.xdlcrm.system.entity.Dept">
+       SELECT d.deptid,d.deptname,d.deptparaid,de.deptname deptparaname,d.deptcode FROM hj_dept d
+  LEFT JOIN hj_dept de ON d.deptparaid=de.deptid
+
+   </select>
+    <!--根据部门id查询角色信息-->
+    <select id="queryRoleByDeptId" parameterType="java.util.Map" resultType="com.xdlcrm.system.entity.Role">
+
+        SELECT r.roleid,r.rolename FROM hj_role r WHERE r.deptid=#{deptid}
+   </select>
+</mapper> 

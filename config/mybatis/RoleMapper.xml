@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hjcrm.entity">
+<!--根据当前用户的角色id，查询对应的菜单信息-->
+    <select id="queryAllRole" parameterType="java.util.Map" resultType="com.xdlcrm.system.entity.Role">
+         SELECT
+          rm.roleid,r.rolename,d.deptname,GROUP_CONCAT(m.menuname SEPARATOR ',')AS menuname
+              FROM  hj_role r
+               LEFT JOIN hj_role_menu rm ON r.roleid=rm.roleid
+              LEFT JOIN hj_menu m ON m.menuid=rm.menuid
+              LEFT JOIN hj_dept d ON d.deptid=r.roleid
+             GROUP BY r.roleid
+    </select>
+
+    <delete id="deleteRoleMenu" parameterType="java.lang.String">
+        delete from hj_role_menu where roleid=#{roleid}
+
+    </delete>
+	
+</mapper> 
